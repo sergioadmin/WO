@@ -163,7 +163,7 @@ layer_adm.setStyle({fillColor :'#f7941d', fillOpacity: 0.2,"weight": 1, color: '
     // Add fuse search control
     var options = {
         position: 'topright',
-        title: 'Пошук по: ID, назві, населеному пункті',
+        title: 'Пошук по: ID, назві, населеному пункту',
         placeholder: 'ID, назва, населений пункт',
         maxResultLength: 15,
         threshold: 0.5,
