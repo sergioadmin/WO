@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Водні об'єкти Донецької області</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+    <!-- <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' /> -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="m
+     crossorigin=""/>
+
+      <!-- Make sure you put this AFTER Leaflet's CSS -->
+ 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+
+<!--     <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="src/leaflet.fusesearch.js"></script>
+    <link rel="stylesheet" href="css/leaflet.fusesearch.css" /> -->
+
+    <!-- <script src="https://unpkg.com/@ngageoint/leaflet-geopackage@4.1.3/dist/leaflet-geopackage.min.js"></script> -->
+
+    <style>   	
+      .scrollable-menu {
+          height: auto;
+          max-height: 400px;
+          overflow-x: hidden;
+      }
+
+/*      .map {
+        position: absolute;
+        left: 0%;
+        top: 8%;
+        bottom: 0%;
+        width: 100%;
+      }
+*/    .my_table {
+/*      background:#2c3e50;
+      color:#fff;*/
+      border: 1px solid black;
+      border-collapse: collapse;
+      /*background-color: #96D4D4;*/
+    }
+    .name_row {
+      border: 1px solid black;
+      border-collapse: collapse;
+      text-align: right;
+      /*border-radius: 10px;*/
+      font-weight: bold;
+      font-style: italic;
+      column-span: 2;
+    }
+    .row_value {
+      border: 1px solid black;
+    }
+    /*tbody tr:nth-child (odd) {
+      background-color: #C9E4F6; фон нечетных строк 
+    }*/
+    tr:nth-child (even) {
+      background-color: #f2f2f2;/* фон четных строк 
+    }
+  </style>
+
+</head>
+  <body>
+    <!-- <div class="header-container"> -->
+      <!-- <header class="wrapper clearfix"> -->
+<!--             <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" id="link-14" href="#">Донецька область</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Бахмутський р-н
+            </a>
+            <ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item dropdown-events" id="link-101" href="#">Бахмутська територіальна громада</a></li>
+              <li><a class="dropdown-item" id="link-102" href="#">Званівська територіальна громада  <span class="badge bg-info text-dark">4</span></a></li>
+              <li><a class="dropdown-item" id="link-103" href="#">Світлодарська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-104" href="#">Сіверська територіальна громада</a></li>
+              <li><a class="dropdown-item" id="link-105" href="#">Соледарська територіальна громада  <span class="badge bg-info text-dark">4</span></a></li>
+              <li><a class="dropdown-item" id="link-106" href="#">Торецька територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-107" href="#">Часовоярська територіальна громада</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Волноваський р-н
+            </a>
+            <ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item dropdown-events" id="link-201" href="#">Великоновосілківська територіальна громада</a></li>
+              <li><a class="dropdown-item" id="link-202" href="#">Волноваська територіальна громада  <span class="badge bg-info text-dark">4</span></a></li>
+              <li><a class="dropdown-item" id="link-203" href="#">Вугледарська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-204" href="#">Комарська територіальна громада</a></li>
+              <li><a class="dropdown-item" id="link-205" href="#">Мирненська територіальна громада  <span class="badge bg-info text-dark">4</span></a></li>
+              <li><a class="dropdown-item" id="link-206" href="#">Ольгинська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-207" href="#">Старомлинівська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-208" href="#">Хлібодарівська територіальна громада</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Краматорський р-н
+            </a>
+            <ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item dropdown-events" id="link-301" href="#">Андріївська територіальна громада</a></li>
+              <li><a class="dropdown-item" id="link-302" href="#">Дружківська територіальна громада  <span class="badge bg-info text-dark">4</span></a></li>
+              <li><a class="dropdown-item" id="link-303" href="#">Іллінівська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-304" href="#">Костянтинівська територіальна громада</a></li>
+              <li><a class="dropdown-item" id="link-305" href="#">Краматорська територіальна громада  <span class="badge bg-info text-dark">4</span></a></li>
+              <li><a class="dropdown-item" id="link-306" href="#">Лиманська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-307" href="#">Миколаївська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-308" href="#">Новодонецька територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-309" href="#">Олександрівська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-310" href="#">Святогірська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-311" href="#">Слов'янська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-312" href="#">Черкаська територіальна громада</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Маріупольський р-н
+            </a>
+            <ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item dropdown-events" id="link-401" href="#">Кальчицька територіальна громада</a></li>
+              <li><a class="dropdown-item" id="link-402" href="#">Мангушська територіальна громада  <span class="badge bg-info text-dark">4</span></a></li>
+              <li><a class="dropdown-item" id="link-403" href="#">Маріупольська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-404" href="#">Нікольська територіальна громада</a></li>
+              <li><a class="dropdown-item" id="link-405" href="#">Сартанська територіальна громада  <span class="badge bg-info text-dark">4</span></a></li>
+            </ul>
+          </li>        
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Покровський р-н
+            </a>
+            <ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item dropdown-events" id="link-501" href="#">Авдіївська територіальна громада</a></li>
+              <li><a class="dropdown-item" id="link-502" href="#">Білозерська територіальна громада  <span class="badge bg-info text-dark">4</span></a></li>
+              <li><a class="dropdown-item" id="link-503" href="#">Гродівська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-504" href="#">Добропільська територіальна громада</a></li>
+              <li><a class="dropdown-item" id="link-505" href="#">Криворізька територіальна громада  <span class="badge bg-info text-dark">4</span></a></li>
+              <li><a class="dropdown-item" id="link-506" href="#">Курахівська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-507" href="#">Мар'їнська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-508" href="#">Мирноградська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-509" href="#">Новогродівська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-510" href="#">Очеретинська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-511" href="#">Покровська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-512" href="#">Селидівська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-513" href="#">Удачненська територіальна громада</a></li>
+               <li><a class="dropdown-item" id="link-514" href="#">Шахівська територіальна громада</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    </nav> -->
+
+        <!-- <h1 class="title">La culture à Nantes, par <a href="http://cartocite.fr> target="_blank">Carto'CITÉ</a></h1> -->
+        <!--nav>
+          <ul>
+              <li><a href="#">Culture</a></li>
+          </ul>
+        </nav-->
+        <!-- </header> -->
+      <!-- </div> -->
+
+    <script src="js/data-2.js"></script>
+    <script src="js/WO.js"></script>
+    <!-- <script src="https://drive.google.com/file/d/1pnPCvpXvnd84lePPqERdeOEQU0ipbkoa/view?usp=drive_link"></script> -->
+
+    <div class="main wrapper clearfix">
+
+
+        <div id="map" class="leaflet-container"></div>
+        
+    </div> <!-- #main -->
+
+    <!-- Include Fuse.js for fuzzy search : http://kiro.me/projects/fuse.html -->
+    <script src="js/vendor/fuse.js"></script>
+    <script src="src/leaflet.fusesearch.js"></script>
+    <link rel="stylesheet" href="css/leaflet.fusesearch.css" />
+
+
+    <script src="js/main.js"></script>
+
+<style>
+/*
+ * These CSS rules affect the tooltips within maps with the custom-popup
+ * class. See the full CSS for all customizable options:
+ * https://github.com/mapbox/mapbox.js/blob/001754177f3985c0e6b4a26e3c869b0c66162c99/theme/style.css#L321-L366
+*/
+/*.custom-popup .leaflet-popup-content-wrapper {
+  background:#2c3e50;
+  color:#fff;
+  font-size:16px;
+  line-height:24px;
+  }
+.custom-popup .leaflet-popup-content-wrapper a {
+  color:rgba(255,255,255,0.5);
+  }
+.custom-popup .leaflet-popup-tip-container {
+  width:30px;
+  height:15px;
+  }
+.custom-popup .leaflet-popup-tip {
+  border-left:15px solid transparent;
+  border-right:15px solid transparent;
+  border-top:15px solid #2c3e50;
+*/  }
+</style>
+
+<!-- <div class="map leaflet-container" id="map"> -->
+
+<!-- <div class="leaflet-tile-container leaflet-zoom-animated"> -->
+<!--   <div class="leaflet-control-container">
+    <div class="leaflet-top leaflet-right">
+      <div class="leaflet-fusesearch-control leaflet-control">
+        <a class="button" href="#" title="Search..."></a>
+      </div>
+      <div class="leaflet-control-layers leaflet-control" aria-haspopup="true">
+        <a class="leaflet-control-layers-toggle" href="#" title="Layers"></a>
+      </div>
+      <div class="leaflet-fusesearch-panel right visible">
+        <div class="content">
+          <img class="search-image">
+          <input class="search-input" maxlength="30" placeholder="ex: 14152041, Курахівське, ,">
+          <a class="close">×</a>
+          <div class="result-list"></div>
+        </div>
+      </div>
+      <div class="tiny-popup" style="transform: translate3d(377px, 211px, 0px);">Salle d'Expositions Manu</div>
+    </div>
+  </div> -->
+<!-- </div>   -->
+<script>
+
+//   var current_tg_id = 0;
+//   var layer_WO_centroids_2 = null;
+
+//   var admStyle = {
+//     "color": "#ff7800",
+//     // "color": "#777700",
+//     "weight": 1,
+//     "opacity": 0.65,
+//     fillColor:'orange'
+// };
+// var highlightStyle = {
+//     'color': '#333333',
+//     'weight': 2,
+//     'opacity': 1
+// };
+//      var style1 ={
+//              weight: 2,
+//              opacity: 1,
+//              color: 'red',
+//              dashArray: '3',
+//              fillOpacity: 0.7,
+//              fillColor:'red'
+//      };
+
+    // const map = L.map('map').setView([47.84091,36.83012], 8); //7 - zoom
+
+  // osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  //   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  // }).addTo(map);
+
+// var baselayers ={
+//   "OpenStreetMap": osm,
+// };
+
+// var overlays = {
+//   "Marker": singleMarker,
+// };
+
+// L.control.layers(baselayers).addTo(map);
+
+// var searchCtrl = L.control.fuseSearch();
+// searchCtrl.addTo(map);
+
+// searchCtrl.indexFeatures(json_WO_centroids_2, ['ID', "Населений пункт", "Назва об’єкта поверхневих вод"]);
+
+// L.geoPackageFeatureLayer([], {
+//     geoPackageUrl: "D:\QGIS_data\my_file.gpkg",
+//     layerName: 'Inventory'
+// }).addTo(map);
+
+// layer_adm.setStyle(highlightStyle);
+
+    let geo_len = my_geojson.features.map(feature => feature.properties.id);
+    var name_id='';
+    for(i=0; i<54; i++) {
+        name_id = 'link-'+String(geo_len[i]); 
+        link111 = document.getElementById(name_id);
+        document.getElementById(name_id).addEventListener('click', function(e) { 
+          ff12(Number(e.target.id.replace('link-','')));
+        });
+    };
+    // if(current_tg_id === 0) createSelectedLayer();
+
+function ff12(selected_id1) {
+  // console.log(selected_id1);
+  // createSelectedLayer(String(selected_id1));
+    for(var j=0; j<my_geojson.features.length;j++){
+      if(parseInt(my_geojson.features[j].properties.id) === selected_id1){
+        const bb = L.bounds(my_geojson.features[j].geometry.coordinates);
+        // var maa = [ [bb.min.y, bb.min.x], [bb.max.y, bb.max.x] ];
+        map.fitBounds([[bb.min.y, bb.min.x], [bb.max.y, bb.max.x]]);
+        // map.flyToBounds([[bb.min.y, bb.min.x], [bb.max.y, bb.max.x]]);
+        return;
+      }
+    }  
+}
+
+  // function pop_WO_centroids_2(feature, layer) {
+  //   var popupContent = '<table class="my_table">\
+  //       <tr>\
+  //         <td class="name_row"> ID</td>\
+  //         <td class="row_value">' + feature.properties['ID'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Населений пункт</td>\
+  //         <td class="row_value">' + feature.properties['Населений пункт'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Район</td>\
+  //         <td class="row_value">' + feature.properties['Район'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Територіальна громада</td>\
+  //         <td class="row_value">' + feature.properties['Територіальна громада'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Назва ВО</td>\
+  //         <td class="row_value">' + feature.properties['Назва ВО'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Тип гідрографії</td>\
+  //         <td class="row_value">' + feature.properties['Тип об\'єкта гідрографії'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Тип ВО</td>\
+  //         <td class="row_value">' + feature.properties['Тип водного об\'єкта'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Назва водотоку, на якому розташовано ВО (басейн річки)</td>\
+  //         <td class="row_value">' + feature.properties['Назва водотоку_ на якому розташовано водний об\'єкт_ басейн річки'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Суббасейн</td>\
+  //         <td class="row_value">' + feature.properties['Суббасейн'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Населений пункт</td>\
+  //         <td class="row_value">' + feature.properties['Населений пункт'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Район річкового басейну</td>\
+  //         <td class="row_value">' + feature.properties['Район річкового басейну'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Код водогосподарської ділянки</td>\
+  //         <td class="row_value">' + feature.properties['Водогосподарська ділянка _код_'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Паспорт водного об’єкта (дата погодження)</td>\
+  //         <td class="row_value">' + feature.properties['Паспорт водного об\'єкта _дата погодження_'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Паспорт рибогосподарської технологічної водойми  (дата погодження)</td>\
+  //         <td class="row_value">' + feature.properties['Паспорт рибогосподарської технологічної водойми _дата погодження_'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Площа водного дзеркала при НПР, га</td>\
+  //         <td class="row_value">' + feature.properties['Площа водного дзеркала при НПР_ га'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Об\'єм при НПР, тис.м3</td>\
+  //         <td class="row_value">' + feature.properties['Об\'єм при НПР_ тис.куб.м'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Форма власності ГТС</td>\
+  //         <td class="row_value">' + feature.properties['Форма власності гідротехнічної споруди'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Форма власності ГТС</td>\
+  //         <td class="row_value">' + feature.properties['Форма власності гідротехнічної споруди'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Балансоутримувач\/орендар\/власник ГТС</td>\
+  //         <td class="row_value">' + feature.properties['Балансоутримувач_орендар_власник гідротехнічної споруди'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Стан ГТС (задовільний\/незадовільний\/аварійний)</td>\
+  //         <td class="row_value">' + feature.properties['Стан гідротехнічної споруди (задовільний_незадовільний_аварійний)'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Можливість регулювання стоку</td>\
+  //         <td class="row_value">' + feature.properties['Можливість регулювання стоку'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Кадастровий номер земельної ділянки під ВО</td>\
+  //         <td class="row_value">' + feature.properties['Кадастровий номер земельної ділянки під водним об\'єктом'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Форма власності на ділянку</td>\
+  //         <td class="row_value">' + feature.properties['Форма власності на ділянку'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Користувач ділянки під ВО</td>\
+  //         <td class="row_value">' + feature.properties['Користувач ділянки під водним об\'єктом'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Орендар ВО</td>\
+  //         <td class="row_value">' + feature.properties['Орендар водного об\'єкта'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Орендодавець</td>\
+  //         <td class="row_value">' + feature.properties['Орендодавець'] + '</td>\
+  //       </tr>\
+  //       <tr>\
+  //         <td class="name_row"> Номер договору, за яким орендується ВО, період дії</td>\
+  //         <td class="row_value">' + feature.properties['Номер договору_ за яким орендується водний об\'єкт_ період дії'] + '</td>\
+  //       </tr>\
+  //     </table>';
+  //     layer.bindPopup(popupContent, {maxHeight: 400});
+  //   }
+
+  //       function style_WO_centroids_2_0() {
+  //           return {
+  //               // pane: 'pane_WO_centroids_2',
+  //               radius: 4.0,
+  //               opacity: 1,
+  //               color: 'rgba(35,35,35,1.0)',
+  //               dashArray: '',
+  //               lineCap: 'butt',
+  //               lineJoin: 'miter',
+  //               weight: 1,
+  //               fill: true,
+  //               fillOpacity: 1,
+  //               fillColor: 'rgba(165,187,248,1.0)',
+  //               interactive: true,
+  //           }
+  //       }
+      //   function createSelectedLayer(tg_id) {
+      //   if(layer_WO_centroids_2 !== null ) map.removeLayer(layer_WO_centroids_2);
+      //   console.log(layer_WO_centroids_2);
+      //   layer_WO_centroids_2 = new L.geoJson(json_WO_centroids_2, {
+      //       attribution: '',
+      //       interactive: true,
+      //       dataVar: 'json_WO_centroids_2',
+      //       layerName: 'layer_WO_centroids_2',
+      //       // pane: 'pane_WO_centroids_2',
+      //       onEachFeature: pop_WO_centroids_2,
+      //       filter: function(feature, layer) {
+      //                 feature.layer = layer;
+      //        return feature.properties.id_tg === tg_id;
+      //       },
+      //       pointToLayer: function (feature, latlng) {
+      //           var context = {
+      //               feature: feature,
+      //               variables: {}
+      //           };
+      //           return L.circleMarker(latlng, style_WO_centroids_2_0(feature));
+      //       },
+      //   });
+      //   map.addLayer(layer_WO_centroids_2);
+      // }
+
+  //           function highlightFeature(e) {
+  //           highlightLayer = e.target;
+
+  //           if (e.target.feature.geometry.type === 'LineString') {
+  //             highlightLayer.setStyle({
+  //               color: '#ffff00',
+  //             });
+  //           } else {
+  //             highlightLayer.setStyle({
+  //               fillColor: '#ffff00',
+  //               fillOpacity: 1
+  //             });
+  //           }
+  //           highlightLayer.openPopup();
+  //       }
+
+
+// ff12(14);
+</script>
+  </body>
+</html>
